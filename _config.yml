@@ -1,5 +1,6 @@
 title: My Jekyll Site
-
+baseurl: ""
+url: "https://faenuccio-teaching.github.io/ENS_26/"
 # Build settings
 remote_theme: pages-themes/cayman@v0.2.0
 plugins:
