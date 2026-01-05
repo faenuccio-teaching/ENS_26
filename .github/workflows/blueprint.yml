@@ -82,9 +82,8 @@ jobs:
         with:
           ruby-version: '3.1'
           bundler-cache: true
-      - run: |
-          gem install jekyll bundler
-          jekyll build
+      - run: bundle install
+      - run: bundle exec jekyll build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
