@@ -4,25 +4,25 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '**/*.lean'
-      - '**/blueprint.yml'
-      - 'blueprint/**'
-      - 'home_page/**'
-      - 'lean-toolchain'
-      - 'lakefile.toml'
-      - 'lake-manifest.json'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '**/*.lean'
-      - '**/blueprint.yml'
-      - 'blueprint/**'
-      - 'home_page/**'
-      - 'lean-toolchain'
-      - 'lakefile.toml'
-      - 'lake-manifest.json'
+  #   paths:
+  #     - '**/*.lean'
+  #     - '**/blueprint.yml'
+  #     - 'blueprint/**'
+  #     - 'home_page/**'
+  #     - 'lean-toolchain'
+  #     - 'lakefile.toml'
+  #     - 'lake-manifest.json'
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - '**/*.lean'
+  #     - '**/blueprint.yml'
+  #     - 'blueprint/**'
+  #     - 'home_page/**'
+  #     - 'lean-toolchain'
+  #     - 'lakefile.toml'
+  #     - 'lake-manifest.json'
   workflow_dispatch: # Allow manual triggering of the workflow from the GitHub Actions interface
 
 # Cancel previous runs if a new commit is pushed to the same PR or branch
@@ -69,3 +69,20 @@ jobs:
         with:
           blueprint: false
           homepage: home_page
+
+  deploy:
+    runs-on: ubuntu-latest
+    name : Deploy site
+    steps:
+      - uses: actions/checkout@v4
+
+      # build step (example)
+      - run: |
+          mkdir dist
+          echo "<h1>Hello</h1>" > dist/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - uses: actions/deploy-pages@v4
