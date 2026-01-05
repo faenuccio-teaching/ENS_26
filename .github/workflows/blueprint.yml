@@ -72,17 +72,20 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    name : Deploy site
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-
-      # build step (example)
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
       - run: |
-          mkdir dist
-          echo "<h1>Hello</h1>" > dist/index.html
-
+          gem install jekyll bundler
+          jekyll build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
-
+          path: _site
       - uses: actions/deploy-pages@v4

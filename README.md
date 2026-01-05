@@ -1,6 +1,7 @@
 # Formalisation Mathématiques (ENS-Paris, printemps 2026)
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-lightblue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Docs: Website](https://img.shields.io/badge/Docs-Website-blue.svg?logo=readthedocs&logoColor=white)](https://faenuccio-teaching.github.io/ENS_26/docs/)
 
 
 ## Doc
