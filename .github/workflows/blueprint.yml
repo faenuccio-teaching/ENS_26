@@ -69,23 +69,23 @@ jobs:
         with:
           blueprint: false
           homepage: home_page
-
-  deploy:
-    runs-on: ubuntu-latest
-    name: Deploy website
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.1'
-          bundler-cache: true
-      - run: bundle install
-      - run: bundle exec jekyll build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-      - uses: actions/deploy-pages@v4
+#
+#   deploy:
+#     runs-on: ubuntu-latest
+#     name: Deploy website
+#     permissions:
+#       contents: read
+#       pages: write
+#       id-token: write
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: ruby/setup-ruby@v1
+#         with:
+#           ruby-version: '3.1'
+#           bundler-cache: true
+#       - run: bundle install
+#       - run: bundle exec jekyll build
+#       - uses: actions/upload-pages-artifact@v3
+#         with:
+#           path: _site
+#       - uses: actions/deploy-pages@v4
