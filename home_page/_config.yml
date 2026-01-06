@@ -2,6 +2,7 @@ title: My Jekyll Site
 
 url: https://faenuccio-teaching.github.io
 baseurl: "/ENS_26"
+repository: faenuccio-teaching/ENS_26
 
 remote_theme: pages-themes/cayman@v0.2.0
 
