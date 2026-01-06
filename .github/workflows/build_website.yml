@@ -1,4 +1,4 @@
-name: Compile blueprint
+name: Build Website
 
 on:
   push:
