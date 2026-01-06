@@ -4,25 +4,6 @@ on:
   push:
     branches:
       - main
-  #   paths:
-  #     - '**/*.lean'
-  #     - '**/blueprint.yml'
-  #     - 'blueprint/**'
-  #     - 'home_page/**'
-  #     - 'lean-toolchain'
-  #     - 'lakefile.toml'
-  #     - 'lake-manifest.json'
-  # pull_request:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - '**/*.lean'
-  #     - '**/blueprint.yml'
-  #     - 'blueprint/**'
-  #     - 'home_page/**'
-  #     - 'lean-toolchain'
-  #     - 'lakefile.toml'
-  #     - 'lake-manifest.json'
   workflow_dispatch: # Allow manual triggering of the workflow from the GitHub Actions interface
 
 # Cancel previous runs if a new commit is pushed to the same PR or branch
@@ -62,6 +43,7 @@ jobs:
       - name: Build the project
         uses: leanprover/lean-action@434f25c2f80ded67bba02502ad3a86f25db50709 # v1.3.0
         with:
+          use-mathlib-cache: true
           use-github-cache: true
 
       - name: Compile documentation
@@ -69,23 +51,3 @@ jobs:
         with:
           blueprint: false
           homepage: home_page
-#
-#   deploy:
-#     runs-on: ubuntu-latest
-#     name: Deploy website
-#     permissions:
-#       contents: read
-#       pages: write
-#       id-token: write
-#     steps:
-#       - uses: actions/checkout@v4
-#       - uses: ruby/setup-ruby@v1
-#         with:
-#           ruby-version: '3.1'
-#           bundler-cache: true
-#       - run: bundle install
-#       - run: bundle exec jekyll build
-#       - uses: actions/upload-pages-artifact@v3
-#         with:
-#           path: _site
-#       - uses: actions/deploy-pages@v4
