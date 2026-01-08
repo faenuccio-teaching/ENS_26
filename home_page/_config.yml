@@ -4,8 +4,9 @@ url: https://faenuccio-teaching.github.io
 baseurl: "/ENS_26"
 repository: faenuccio-teaching/ENS_26
 
-remote_theme: pages-themes/cayman@v0.2.0
-
+# remote_theme: pages-themes/cayman@v0.2.0
+remote_theme: pages-themes/minimal@v0.2.0
+#
 plugins:
   - jekyll-remote-theme
   - jekyll-github-metadata
