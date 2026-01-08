@@ -1,9 +1,6 @@
-+++ `by_cases`
-The `by_cases` tactic, **not to be confused with** `cases`, creates two subgoals: one assuming a premise, and the one assuming its negation.
 
 
-`⌘`
-+++
+
 
 +++ Equivalences
 As above, an equivalence can be either *proved* or *used*.
