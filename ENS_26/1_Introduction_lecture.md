@@ -1,8 +1,5 @@
 # Tactics and Types
 
-For this and all other classes, excellent material can be found in
-* [Theorem Proving in Lean 4](https://leanprover.github.io/theorem_proving_in_lean4/), by J. Avigad, L. de Moura, S. Kong, S. Ullrich
-* [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/), by J. Avigad and P. Massot
 
 Let's see an example before moving on
 
@@ -10,7 +7,7 @@ Let's see an example before moving on
 
 ## Tactics
 
-`Lean` relies on the *Curry–Howard isomorphisms*, or as the
+`Lean` relies on the *Curry–Howard isomorphism*, sometimes called the
   > Propositions-as-Types and Proofs as-Terms Correspondence
 
 (more on this later).
@@ -32,8 +29,10 @@ This is often painful: to simplify our life, or to build more convoluted implica
 * On the other hand, given a term `hq : q` and a goal `⊢ q`, the tactic `exact hq` closes the goal, instructing Lean to use `hq` as the sought-for term in `q`.
 * `apply` is the crucial swiss-knife for *backwards reasoning*: in a situation like
 
-    | hpq : p → q
-      ⊢ q
+    ```
+    hpq : p → q
+    ⊢ q
+    ```
 
 the tactic `apply hpq` changes the goal to `⊢ p`: it tells Lean that, granted `hpq` it suffices to construct a term in `p` to deduce a term in `q`.
 
@@ -76,11 +75,11 @@ The `by_cases` tactic, **not to be confused with** `cases`, creates two subgoals
 +++
 ## Types
 
-Lean is based on (dependent) type theory. It is a very deep foundational theory, and we will not dig into the details of this (which I am certainly *not* an expert of).
+Lean is based on (dependent) type theory. It is a very deep foundational theory, and we won't dig into all its details.
 
-We'll content ourselves by using it as a replacement for the foundational theory underneath "usual" mathematics, replacing sets by **types as fundamental objects**.
+We'll use it as a replacement for the foundational theory, **replacing sets by types as fundamental objects**.
 
-* We do not define *what* types are. They *are*.
+> We do not define *what* types are. They *are*.
 
 Types contain *terms*: we do not call them elements. The notation `x ∈ A` is **not** used, and reserved for sets (that will appear, at a certain point). The syntax to say that `t` is a term of the type `T` is
 
@@ -88,8 +87,15 @@ Types contain *terms*: we do not call them elements. The notation `x ∈ A` is *
 
 and reads "the type of `t` is `T`".
 
+Given some term `t` we can ask Lean what its type is with the command
+```
+#check t
+```
+
+`⌘`
+
 +++ Sets = Types?
-**No!** Of course, you can bring over some intuition from basic set-theory, but the crucial difference is that **every term has a unique type**.
+**No!** Of course, you can bring over some intuition from basic set-theory, but **every term has a unique type**.
 
 So,
 
@@ -103,69 +109,21 @@ is certainly *false*, unless `T = S`. In particular, `1 : ℕ` and `1 : ℤ` sho
 There is a class of particular types, called *propositions*. This class is denoted `Prop`.
 
 
-* Types in the class `Prop` represent propositions (that can be either true or false). So, `(2 < 3) : Prop` and `(37 < 1) : Prop` are two *types* in this class, as is `(A finite group of order 11 is cyclic)`.
+Types in the class `Prop` represent propositions (that can be either true or false). So, `(2 < 3) : Prop` and `(37 < 1) : Prop` are two *types* in this class, as is `(A finite group of order 11 is cyclic)`.
 
-+++ `True`, `False`, `¬` and proofs by contradiction
-* `True : Prop` is a type whose only term is called `trivial`. To prove `True`, do `exact trivial`, for instance.
++++ `True`,  `False` and `Bool`
+Fundamentally, `Prop` contains only two types:
+`True : Prop` is a type whose only term is called `trivial`. To prove `True`, you can do `exact trivial`.
 
 * `False` has no term. Typically, you do not want to construct terms there...
+* `Bool` is a different type, that contains two *terms*: `true` and `false` (beware the capitalization!).
+> `Bool` ≠ `Prop`, and we'll ignore `Bool` most of the time.
 
-* The `exfalso` tactic changes *any* goal to proving `False` (useful if you have an assumption ` ... → False`).
-
-* The *definition* of `¬ P` is
-
-    P → False
-
-and proofs by contradiction, introduced using the `by_contra` tactic, require you to prove `False` assuming `not (the goal)`: if your goal is `⊢ p`, typing `by_contra h` creates
-
-    | h : ¬ P
-      ⊢ False
-
-* The difference between `exfalso` and `by_contra` is that the first does not introduce anything, and forgets the actual goal; the second negates the goal and asks for `False`.
-
-`⌘`
 +++
-
-* Key point: if `P : Prop` then either `P` has not term at all ("`P` is false"), or `P` has a unique term `hp` (`hp` is "a witness that `P` is true"; or a **proof** of `P`).
-
-### Constructing types
-+++ Function types
-blaa
-+++
-
-+++ Σ-types and Π-types (dependent!)
-blabla
-+++
-
-+++ ∀ and ∃
-* `∀` is a `Π`-type **GIVE THE TRUE DEF**
-
-* You can the prove it by `intro`ducing a variable (thought of as a "generic element", do `intro x` to call this element `x`), and by proving `P x`.
-* If you have `H : ∀ x : α, P x` and also a term `y : α`, you can specialise `H` to `y`:
-
-        specialize H y (:= P y)
-
-If the goal is `⊢ P y`, you might simply want to do `exact H y`, remembering that implications, `∀` and functions are all the same thing.
-+++
-
-* `∃` is a Σ-type **GIVE THE TRUE DEF**
-
-Once more,
-* To prove `∃ x, P x`, you first produce `x`, and then prove it satisfies `P x`: once you have constructed `x`, do `use x` to have Lean ask you for `⊢ P x`.
-* If you have `H : ∃ x, P x`, do `obtain ⟨x, hx⟩ := H` to obtain the term `x` together with a proof that `P x`.
-
-`⌘`
-+++
-
-+++ The hierarchy
-There is actually a whole hierarchy of types
-
-    Prop : Type 0 : Type 1 : ... Type n : ...
-
-So, `Prop` is a *term* of the *type* `Type 0`, itself a *term* of the type `Type 1`, etc.
-
-Lean shortens `Type 0` to `Type`, omitting the index. It is where most known mathematical objects (like `ℕ`, `ℤ`, `ℂ`, etc) live: they are terms of this type.
 
 `⌘`
 
-+++
+#### Key points to keep in mind
+* If `P : Prop` then either `P` has not term at all ("`P` is false"), or `P` has a unique term `hp` (`hp` is "a witness that `P` is true"; or a **proof** of `P`).
+* As well `ℕ` as `3 < -1` as `ℝℙ²` and `(a+b)² = a² + 2ab + b²` are types, although of different flavour.
+s
