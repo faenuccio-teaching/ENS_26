@@ -1,13 +1,14 @@
 # Tactics and Types
 
+Welcome!
 
-Let's see an example before moving on
+Before discussing how to do things, let's have a look at what we're speaking about.
 
 `⌘`
 
 ## Tactics
 
-`Lean` relies on the *Curry–Howard isomorphism*, sometimes called the
+Lean relies on the *Curry–Howard isomorphism*, sometimes called the
   > Propositions-as-Types and Proofs as-Terms Correspondence
 
 (more on this later).
@@ -18,23 +19,23 @@ Proving `P : Prop` boils down to producing a/the term `hp : P`.
 
 This is typically done by
 1. Finding somewhere a *true* proposition `Q` and a term `hq : Q`;
-1. Producing a function `f : P → Q` ("an implication").
+1. Producing a function `f : P → Q` ("an implication");
 1. Defining `hp := f hq`.
 
 This is often painful: to simplify our life, or to build more convoluted implications, we use *tactics*.
 
 +++ `intro`, `exact`, `apply` and `rfl`
-* Given an implication `p → q`, the tactic `intro hp` introduces a term `hp : p`.
+* Given an implication `P → Q`, the tactic `intro hp` introduces a term `hp : P`.
 
-* On the other hand, given a term `hq : q` and a goal `⊢ q`, the tactic `exact hq` closes the goal, instructing Lean to use `hq` as the sought-for term in `q`.
+* On the other hand, given a term `hq : Q` and a goal `⊢ Q`, the tactic `exact hq` closes the goal, instructing Lean to use `hq` as the sought-for term in `Q`.
 * `apply` is the crucial swiss-knife for *backwards reasoning*: in a situation like
 
     ```
-    hpq : p → q
-    ⊢ q
+    hpq : P → Q
+    ⊢ Q
     ```
 
-the tactic `apply hpq` changes the goal to `⊢ p`: it tells Lean that, granted `hpq` it suffices to construct a term in `p` to deduce a term in `q`.
+the tactic `apply hpq` changes the goal to `⊢ P`: it tells Lean that, granted `hpq` (or "having `hpq` at our disposal"), it suffices to construct a term in `P` to deduce a term in `Q`.
 
 
 * If your goal is `a = a`, the tactic `rfl` closes it.
@@ -43,7 +44,7 @@ the tactic `apply hpq` changes the goal to `⊢ p`: it tells Lean that, granted 
 +++
 
 +++ `rw`
-This tactic takes an assumption `h : a = b` and replaces all occurrences of `a` in the goal to `b`. Its variant
+This tactic takes an assumption `h : a = b` and replaces all occurrences of `a` in the goal with `b`. Its variant
 
     rw [h] at h1
 

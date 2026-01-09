@@ -5,6 +5,7 @@ defaultTargets = ["ENS_26"]
 pp.unicode.fun = true
 autoImplicit = false
 relaxedAutoImplicit = false
+linter.tacticAnalysis.introMerge = false
 
 [[require]]
 name = "mathlib"

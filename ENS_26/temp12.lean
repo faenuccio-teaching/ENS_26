@@ -288,3 +288,23 @@ example (a : α) : (∃ x, R → p x) ↔ (R → ∃ x, p x) := by
     · intro x
       specialize h x
       exact h.right
+
+
+/- ## `by_cases` -/
+
+-- **ToDO**
+example (h1 : P → Q) (h2 : ¬ P → Q) : Q := by
+  by_cases hp : P
+  · apply h1
+    exact hp
+  · apply h2
+    exact hp
+
+-- **ToDo**
+example (α : Type) (S : Set α) (x y : α) : x ∈ S → y ∈ Sᶜ → x ≠ y := by
+  by_cases hS : S = ∅
+  · intro hx
+    exfalso
+    rw [hS] at hx
+    exact hx
+  · intro hx hy
