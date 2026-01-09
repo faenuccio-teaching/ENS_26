@@ -301,10 +301,14 @@ example (h1 : P → Q) (h2 : ¬ P → Q) : Q := by
     exact hp
 
 -- **ToDo**
-example (α : Type) (S : Set α) (x y : α) : x ∈ S → y ∈ Sᶜ → x ≠ y := by
+example {α : Type} (S : Set α) : ∃ f : S → S, ∀ a b, (ha : a ∈ S) → (hb : b ∈ S) → f ⟨a, ha⟩ = f ⟨b, hb⟩ := by
   by_cases hS : S = ∅
-  · intro hx
+  · use (·)
+    intro a b ha hb
     exfalso
-    rw [hS] at hx
-    exact hx
-  · intro hx hy
+    apply hS ▸ ha
+  · rw [← ne_eq, ← Set.nonempty_iff_ne_empty] at hS
+    obtain ⟨y, hy⟩ := hS
+    use fun x ↦ ⟨y, hy⟩
+    intro a b ha hb
+    rfl
