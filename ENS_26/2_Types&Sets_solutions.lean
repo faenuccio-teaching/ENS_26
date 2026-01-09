@@ -1,11 +1,18 @@
-import Mathlib.Algebra.Group.Nat.Even
-import Mathlib.Data.Set.Basic
-import Mathlib.Data.Set.Operations
-import Mathlib.Data.Set.Insert
-import Mathlib.Order.SetNotation
-import Mathlib.Tactic.Common
+import Mathlib.Tactic
 
 open Set Classical
+
+
+#check ∀ n : ℕ, Vector ℝ n
+#check Π n : ℕ, Vector ℝ n
+#check (n : ℕ) → Vector ℝ n
+#check (λ n ↦ (0 : Vector ℝ n))
+#check (∀ n : ℕ, n + 1 ≤ n + 2)
+#check (λ n ↦ n + 1 ≤ n + 2)
+
+#check Σ n : ℕ, Vector ℝ n
+#check (n : ℕ) × Vector ℝ n
+#check (⟨3, (0 : Vector ℝ 3)⟩ : (n : ℕ) × Vector ℝ n)
 
 -- # §1: Sets
 

@@ -312,3 +312,12 @@ example {α : Type} (S : Set α) : ∃ f : S → S, ∀ a b, (ha : a ∈ S) → 
     use fun x ↦ ⟨y, hy⟩
     intro a b ha hb
     rfl
+
+#check ∀ n : ℕ, Vector ℝ n
+#check Π n : ℕ, Vector ℝ n
+#check (n : ℕ) → Vector ℝ n
+#check (λ n ↦ (0 : Vector ℝ n))
+
+#check Σ n : ℕ, Vector ℝ n
+#check (n : ℕ) × Vector ℝ n
+#check (⟨3, (0 : Vector ℝ 3)⟩ : (n : ℕ) × Vector ℝ n)
